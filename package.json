@@ -1,0 +1,30 @@
+{
+  "name": "strapi-plugin-waasabi-cfp",
+  "version": "0.1.0",
+  "description": "A backend for the RustFest CFP app, in a plugin format suitable for use in Waasabi's Strapi backend.",
+  "strapi": {
+    "name": "cfp",
+    "icon": "plug",
+    "description": "A backend for the RustFest CFP app, in a plugin format suitable for use in Waasabi's Strapi backend."
+  },
+  "dependencies": {
+    "@fluent/bundle": "^0.16.1"
+  },
+  "author": {
+    "name": "Flaki",
+    "email": "git@flaki.hu",
+    "url": "https://flak.is"
+  },
+  "maintainers": [
+    {
+      "name": "Flaki",
+      "email": "git@flaki.hu",
+      "url": "https://flak.is"
+    }
+  ],
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

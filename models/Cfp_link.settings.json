@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cfp_links",
+  "info": {
+    "name": "CFP links"
+  },
+  "options": {
+    "increments": false,
+    "timestamps": false,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "url": {
+      "type": "string",
+      "default": "https://",
+      "required": true
+    }
+  }
+}

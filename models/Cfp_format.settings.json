@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cfp_presentation_formats",
+  "info": {
+    "name": "CFP formats"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": false,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "decription": {
+      "type": "string"
+    }
+  }
+}

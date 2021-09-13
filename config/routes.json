@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/submit",
+      "handler": "cfp.submit",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/configuration",
+      "handler": "cfp.configuration",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

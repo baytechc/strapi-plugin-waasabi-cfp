@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cfp_audience_targets",
+  "info": {
+    "name": "CFP audience"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": false,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "decription": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cfp_submissions",
+  "info": {
+    "name": "CFP submissions"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "language": {
+      "type": "string"
+    },
+    "presentation_lang": {
+      "type": "string"
+    },
+    "presentation_format": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "notes": {
+      "type": "richtext"
+    },
+    "audience_target": {
+      "type": "string"
+    },
+    "event_target": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "richtext"
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    }
+  }
+}
