@@ -13,6 +13,7 @@ const { join, basename } = require('path');
 const { FluentBundle, FluentResource } = require('@fluent/bundle');
 
 const LOCALE_DIR = join(__dirname, '../locales');
+const FALLBACK_LOCALE = 'en';
 const localization = {};
 
 for (const f of fs.readdirSync(LOCALE_DIR)) {
@@ -59,8 +60,8 @@ module.exports = {
   
     return { raw, fieldConfig, fields, required };
   },
-  async sendConfirmation(submission) {
-    const { language, email, name, title, ptx } = submission;
+  async sendConfirmation(submission, language = FALLBACK_LOCALE) {
+    const { email, name, title, ptx } = submission;
 
     await strapi.plugins['md-email'].services.email.send(
       // Subject
@@ -92,8 +93,8 @@ module.exports = {
     if (!bundle) return '';
 
     const { value } = bundle.getMessage(message) ?? {};
-    if (!value) return '';
+    if (!value) return this.l10n(FALLBACK_LOCALE, message, params);
 
     return bundle.formatPattern(value, params);
-  }
+  },
 };

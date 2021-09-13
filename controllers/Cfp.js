@@ -1,5 +1,7 @@
 'use strict';
 
+const accepts = require('accept-language-parser');
+
 /**
  * Public CFP endpoints
  *
@@ -34,7 +36,7 @@ module.exports = {
 
     await strapi.query('submission', 'cfp').create(submission);
     
-    await strapi.plugins['cfp'].services.cfp.sendConfirmation(submission);
+    await strapi.plugins['cfp'].services.cfp.sendConfirmation(submission, requestLanguage(ctx));
     ctx.send(200);
   },
 
@@ -74,4 +76,10 @@ function sanitize(record) {
   if (Array.isArray(record)) return record.map(r => sanitize(r));
   delete record.created_by; delete record.updated_by;
   return record;
+}
+
+// Extract the current locale from the request headers
+function requestLanguage(ctx) {
+  const acceptLang = require('accept-language-parser').parse(ctx.request.headers['accept-language']);
+  return acceptLang[0]?.code;
 }

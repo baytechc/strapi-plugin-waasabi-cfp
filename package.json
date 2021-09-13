@@ -8,7 +8,8 @@
     "description": "A backend for the RustFest CFP app, in a plugin format suitable for use in Waasabi's Strapi backend."
   },
   "dependencies": {
-    "@fluent/bundle": "^0.16.1"
+    "@fluent/bundle": "^0.16.1",
+    "accept-language-parser": "^1.5.0"
   },
   "author": {
     "name": "Flaki",
