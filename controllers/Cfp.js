@@ -59,6 +59,9 @@ module.exports = {
     const config = sanitize(await strapi.query('cfp_settings','cfp').findOne());
     delete config.id;
 
+    // Configure the backend URL
+    config.backend = strapi.config.server.url;
+
     props.forEach((k,i) => config[k] = sanitize(results[i]));
 
     config.locales = config.locales.split(/[\s,]+/);
