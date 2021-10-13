@@ -56,14 +56,13 @@ module.exports = {
       await strapi.query('cfp_audience','cfp').find(),
     ]);
 
-    const config = Object.fromEntries(
-      props.map((k,i) => [k, sanitize(results[i])])
-    );
+    const config = sanitize(await strapi.query('cfp_settings','cfp').findOne());
+    delete config.id;
 
-    config.approot = ".";
-    config.mountroot = "#app";
-    config.locales = "en, es".split(/\W+/);
-    config.default_locale = "en";
+    props.forEach((k,i) => config[k] = sanitize(results[i]));
+
+    config.locales = config.locales.split(/[\s,]+/);
+    config.default_locale = config.default_locale || config.locales[0];
 
     const { fieldConfig } = await strapi.plugins['cfp'].services.cfp.fields();
     config.fields = fieldConfig;

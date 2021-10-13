@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "name": "CFP settings",
+  "attributes": {
+    "locales": {
+      "type": "string",
+      "default": "en|en-001"
+    },
+    "default_locale": {
+      "type": "string",
+      "default": "en"
+    },
+    "approot": {
+      "type": "string",
+      "default": "."
+    },
+    "mountroot": {
+      "type": "string",
+      "default": "#app"
+    }
+  }
+}
