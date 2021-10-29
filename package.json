@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "A backend for the RustFest CFP app, in a plugin format suitable for use in Waasabi's Strapi backend.",
   "strapi": {
-    "name": "cfp",
-    "icon": "plug",
+    "name": "CFP",
+    "icon": "microphone-alt",
     "description": "A backend for the RustFest CFP app, in a plugin format suitable for use in Waasabi's Strapi backend."
   },
   "dependencies": {

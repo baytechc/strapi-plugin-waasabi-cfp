@@ -1,14 +1,22 @@
+import React from 'react';
+
+const App = () => {
+  return (
+    <div><h1>CFP App admin interface coming soon</h1></div>
+  );
+};
+
+
 import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
-import App from './containers/App';
-import Initializer from './containers/Initializer';
 import lifecycles from './lifecycles';
-import trads from './translations';
 
 export default strapi => {
   const pluginDescription = pluginPkg.strapi.description || pluginPkg.description;
   const icon = pluginPkg.strapi.icon;
   const name = pluginPkg.strapi.name;
+
+  const trads = {};
 
   const plugin = {
     blockerComponent: null,
@@ -16,9 +24,9 @@ export default strapi => {
     description: pluginDescription,
     icon,
     id: pluginId,
-    initializer: Initializer,
+    initializer: () => null,
     injectedComponents: [],
-    isReady: false,
+    isReady: true,
     isRequired: pluginPkg.strapi.required || false,
     layout: null,
     lifecycles,
@@ -36,36 +44,15 @@ export default strapi => {
             defaultMessage: name,
           },
           name,
-          permissions: [
-            // Uncomment to set the permissions of the plugin here
-            // {
-            //   action: '', // the action name should be plugins::plugin-name.actionType
-            //   subject: null,
-            // },
-          ],
+          permissions: [],
         },
       ],
     },
     settings: {
       menuSection: {
         id: pluginId,
-        title: 'Events',
-        links: [
-          {
-            title: {
-              id: 'CFP configuration',
-              defaultMessage: 'Settings',
-            },
-            name: 'cfp-config',
-            to: `${strapi.settingsBaseURL}/${pluginId}`,
-            Component: () => (
-              <CheckPagePermissions permissions={pluginPermissions.settings}>
-                <SettingsPage />
-              </CheckPagePermissions>
-            ),
-            permissions: pluginPermissions.settings,
-          },
-        ],
+        title: 'CFP',
+        links: [],
       },
     },
 
