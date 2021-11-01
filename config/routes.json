@@ -17,6 +17,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/manage/list",
+      "handler": "cfp.list",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/manage/import",
       "handler": "cfp.import",

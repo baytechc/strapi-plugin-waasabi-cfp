@@ -49,6 +49,11 @@
     "email": {
       "type": "email",
       "required": true
+    },
+    "metadata": {
+      "via": "submission",
+      "plugin": "cfp",
+      "collection": "metadata"
     }
   }
 }

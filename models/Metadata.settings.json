@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cfp_metadata",
+  "info": {
+    "name": "CFP metadata",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "dupe",
+        "translation",
+        "anon_version",
+        "rating",
+        "comment",
+        "other"
+      ]
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "submission": {
+      "via": "metadata",
+      "plugin": "cfp",
+      "model": "submission"
+    },
+    "data": {
+      "type": "string"
+    },
+    "details": {
+      "type": "json"
+    }
+  }
+}

@@ -63,6 +63,11 @@ module.exports = {
     await strapi.plugins['cfp'].services.cfp.import(importData);
     ctx.send(200);
   },
+
+  async list(ctx) {
+    const cfps = await strapi.query('submission', 'cfp').find();
+    ctx.send(cfps);
+  },
 }
 
 // Extract the current locale from the request headers
