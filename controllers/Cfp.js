@@ -55,6 +55,14 @@ module.exports = {
     await strapi.plugins['cfp'].services.cfp.setConfig(configData);
     ctx.send(200);
   },
+
+  async import(ctx) {
+    const importData = ctx.request.body;
+    if (typeof importData != 'object') return ctx.throw(403);
+
+    await strapi.plugins['cfp'].services.cfp.import(importData);
+    ctx.send(200);
+  },
 }
 
 // Extract the current locale from the request headers

@@ -139,6 +139,11 @@ module.exports = {
   
     return { raw, fieldConfig, fields, required };
   },
+
+  async import(cfpData) {
+    await strapi.query('submission','cfp').createMany(cfpData);
+  },
+
   async sendConfirmation(submission, language = FALLBACK_LOCALE) {
     const { email, name, title, ptx } = submission;
 

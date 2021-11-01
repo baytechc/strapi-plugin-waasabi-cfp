@@ -18,6 +18,14 @@
     },
     {
       "method": "POST",
+      "path": "/manage/import",
+      "handler": "cfp.import",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
       "path": "/manage/importconfig",
       "handler": "cfp.importconfig",
       "config": {
