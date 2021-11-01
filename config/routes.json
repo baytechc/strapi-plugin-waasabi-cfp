@@ -39,6 +39,22 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/selection/next",
+      "handler": "cfp_selection.next",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/selection/rate",
+      "handler": "cfp_selection.rate",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
