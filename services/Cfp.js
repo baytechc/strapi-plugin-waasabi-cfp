@@ -27,8 +27,6 @@ for (const f of fs.readdirSync(LOCALE_DIR)) {
   localization[lang] = bundle;
 }
 
-
-
 /**
  * cfp.js service
  *
@@ -36,6 +34,87 @@ for (const f of fs.readdirSync(LOCALE_DIR)) {
  */
 
 module.exports = {
+  // Plugin collections that store configuration data
+  settings() {
+    return strapi.query('cfp_settings','cfp')
+  },
+  collections: {
+    events() {
+      return strapi.query('cfp_event','cfp')
+    },
+    links() {
+      return strapi.query('cfp_link','cfp')
+    },
+    presentation_formats() {
+      return strapi.query('cfp_format','cfp')
+    },
+    audience_targets() {
+      return strapi.query('cfp_audience','cfp')
+    },
+  },
+
+  async getConfig() {
+    let config = await this.settings().findOne()
+    if (!config) throw strapi.errors.badRequest('NotConfigured');
+
+    config = sanitize(config);
+    delete config.id;
+
+    // Configure the backend URL
+    config.backend = strapi.config.server.url;
+
+    config.locales = config.locales.split(/[\s,]+/);
+    config.default_locale = config.default_locale || config.locales[0];
+
+    // Collections
+    Object.assign(config, await Promise.all([
+      // events
+      await this.collections.events().find(),
+      // links
+      await this.collections.links().find(),
+      // presentation_formats
+      await this.collections.presentation_formats().find(),
+      // audience_targets
+      await this.collections.audience_targets().find(),
+    ]).then(
+      // Create a new object keyed by the collection names, with the sanitized data for value
+      data => Object.fromEntries(
+        Object.keys(this.collections).map( (coll,i) => [ coll, sanitize(data[i])])
+      )
+    ));
+
+    // Form field configuration and required fields
+    const { fieldConfig } = await this.fields();
+    config.fields = fieldConfig;
+
+    return config
+  },
+
+  async setConfig(config) {
+    // Update collections
+    await Promise.all(Object.keys(this.collections).map(async (coll) => {
+      // Empty the collection and replace contents with the posted one
+      const collection = this.collections[coll]();
+      await collection.delete({});
+      await collection.createMany(config[coll]);
+    }));
+
+    // Update configuration properties (handles future entries as well)
+    const configProps = Object.entries(this.settings().model.attributes).filter(([k,v]) => !v.private).map(([k]) => k);
+    const configData = Object.fromEntries(configProps.map(
+      (prop) => [ prop, config[prop] ]
+    ));
+
+    // Locale configuration
+    const { locales } = config;
+    configData.locales = locales.join(',')
+    configData.default_locale = config.default_locale || config.locales[0];
+
+    await this.settings().update({id:1}, configData)
+
+    // TODO: fields are currently hard-coded
+  },
+
   async fields() {
     const raw = `
       *language
@@ -98,3 +177,9 @@ module.exports = {
     return bundle.formatPattern(value, params);
   },
 };
+
+function sanitize(record) {
+  if (Array.isArray(record)) return record.map(r => sanitize(r));
+  delete record.created_by; delete record.updated_by;
+  return record;
+}

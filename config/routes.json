@@ -15,6 +15,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/manage/importconfig",
+      "handler": "cfp.importconfig",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

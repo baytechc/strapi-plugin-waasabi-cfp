@@ -40,44 +40,21 @@ module.exports = {
     ctx.send(200);
   },
 
+  // Get CFP configuration
   async configuration(ctx) {
-    const props = [
-      'events', 'links', 'presentation_formats', 'audience_targets'
-    ];
-
-    const results = await Promise.all([
-      // events
-      await strapi.query('cfp_event','cfp').find(),
-      // links
-      await strapi.query('cfp_link','cfp').find(),
-      // presentation_formats
-      await strapi.query('cfp_format','cfp').find(),
-      // audience_targets
-      await strapi.query('cfp_audience','cfp').find(),
-    ]);
-
-    const config = sanitize(await strapi.query('cfp_settings','cfp').findOne());
-    delete config.id;
-
-    // Configure the backend URL
-    config.backend = strapi.config.server.url;
-
-    props.forEach((k,i) => config[k] = sanitize(results[i]));
-
-    config.locales = config.locales.split(/[\s,]+/);
-    config.default_locale = config.default_locale || config.locales[0];
-
-    const { fieldConfig } = await strapi.plugins['cfp'].services.cfp.fields();
-    config.fields = fieldConfig;
+    const config = await strapi.plugins['cfp'].services.cfp.getConfig()
     
     ctx.send(config);
-  }
-}
+  },
 
-function sanitize(record) {
-  if (Array.isArray(record)) return record.map(r => sanitize(r));
-  delete record.created_by; delete record.updated_by;
-  return record;
+  // Import existing CFP configuration from file
+  async importconfig(ctx) {
+    const configData = ctx.request.body;
+    if (typeof configData != 'object') return ctx.throw(403);
+
+    await strapi.plugins['cfp'].services.cfp.setConfig(configData);
+    ctx.send(200);
+  },
 }
 
 // Extract the current locale from the request headers
