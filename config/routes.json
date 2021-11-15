@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/selection/available",
+      "handler": "cfp_selection.available",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/selection/rate",
       "handler": "cfp_selection.rate",
@@ -60,6 +68,14 @@
       "method": "POST",
       "path": "/admin/accept",
       "handler": "cfp_selection.accept",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/admin/invite",
+      "handler": "cfp_selection.invite",
       "config": {
         "policies": []
       }

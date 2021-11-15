@@ -28,6 +28,23 @@ module.exports = {
     });
   },
 
+  async available(ctx) {
+    // Get all submissions
+    const submission = strapi.query('submission', 'cfp');
+    const all = await submission.find({})
+    
+    // Keep only the submission id/title and
+    // use the metadata to filter out already-accepted proposals
+    const filtered = all.map(
+      ({ id, title, metadata }) => ({ id, title, metadata})
+    ).filter(
+      e => e.metadata.length === 0
+        || !e.metadata.find(m => m.type === 'selection' && m.data === 'accept')
+    )
+
+    // Remove metadata before returning the results
+    ctx.send(filtered.map(({ id,title }) => ({ id, title })))
+  },
   async rate(ctx) {
     const metadata = strapi.query('metadata','cfp');
 
@@ -63,6 +80,20 @@ module.exports = {
     await strapi.plugins.cfp.services.cfp_admin.selectProposal({
       selectAction: 'accept',
       submission: body.submission,
+      team: body.team,
+      user,
+    })
+
+    ctx.send(200);
+  },
+
+  async invite(ctx) {
+    const { user } = ctx.state;
+    const { body } = ctx.request;
+
+    await strapi.plugins.cfp.services.cfp_admin.confirmSession({
+      selectAction: 'invite',
+      session: body.session,
       team: body.team,
       user,
     })
