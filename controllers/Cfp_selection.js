@@ -55,4 +55,19 @@ module.exports = {
 
     ctx.send(200);
   },
+
+  async accept(ctx) {
+    const { user } = ctx.state;
+    const { body } = ctx.request;
+
+    await strapi.plugins.cfp.services.cfp_admin.selectProposal({
+      selectAction: 'accept',
+      submission: body.submission,
+      team: body.team,
+      user,
+    })
+
+    ctx.send(200);
+  },
+
 }

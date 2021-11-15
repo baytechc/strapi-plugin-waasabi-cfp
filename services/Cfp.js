@@ -7,25 +7,7 @@ const FROM_ADDRESS = env(
   strapi.config.plugins.email.settings.from
 );
 
-// Prepare localization
-const fs = require('fs');
-const { join, basename } = require('path');
-const { FluentBundle, FluentResource } = require('@fluent/bundle');
-
-const LOCALE_DIR = join(__dirname, '../locales');
-const FALLBACK_LOCALE = 'en';
-const localization = {};
-
-for (const f of fs.readdirSync(LOCALE_DIR)) {
-  const lang = basename(f,'.ftl');
-  const locale = fs.readFileSync(join(LOCALE_DIR, f)).toString();
-
-  const res = new FluentResource(locale);
-  const bundle = new FluentBundle(lang);
-  bundle.addResource(res);
-
-  localization[lang] = bundle;
-}
+const { localize } = require('../locales/locales.js')
 
 /**
  * cfp.js service
@@ -144,15 +126,15 @@ module.exports = {
     await strapi.query('submission','cfp').createMany(cfpData);
   },
 
-  async sendConfirmation(submission, language = FALLBACK_LOCALE) {
+  async sendConfirmation(submission, language) {
     const { email, name, title, ptx } = submission;
 
     await strapi.plugins['md-email'].services.email.send(
       // Subject
-      this.l10n(language, 'email-cfp-confirmation-subject'),
+      localize(language, 'email-cfp-confirmation-subject'),
 
       // Body template
-      this.l10n(language, 'email-cfp-confirmation-body'),
+      localize(language, 'email-cfp-confirmation-body'),
 
       // Recipient and other options
       {
@@ -170,17 +152,8 @@ module.exports = {
       // Variables for the template
       { name, title }
     );
-  },
+  }
 
-  l10n(lang, message, params) {
-    const bundle = localization[lang];
-    if (!bundle) return '';
-
-    const { value } = bundle.getMessage(message) ?? {};
-    if (!value) return this.l10n(FALLBACK_LOCALE, message, params);
-
-    return bundle.formatPattern(value, params);
-  },
 };
 
 function sanitize(record) {

@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/admin/accept",
+      "handler": "cfp_selection.accept",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

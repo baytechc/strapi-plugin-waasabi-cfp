@@ -19,6 +19,7 @@
         "anon_version",
         "rating",
         "comment",
+        "selection",
         "other"
       ]
     },
