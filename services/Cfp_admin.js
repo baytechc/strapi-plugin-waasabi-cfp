@@ -20,7 +20,7 @@ module.exports = {
 
     // TODO: make sure submission is not already "accepted"
     // submission.metadata.filter...
-  
+
     // TODO: dupes and translations also affect the status (can't accept a talk that's
     // a translated version of another already-accepted talk)
 
@@ -95,7 +95,7 @@ module.exports = {
 
     // TODO: make sure submission is not already "accepted"
     // submission.metadata.filter...
-  
+
     // TODO: dupes and translations also affect the status (can't accept a talk that's
     // a translated version of another already-accepted talk)
 
@@ -114,7 +114,6 @@ module.exports = {
       const acceptMeta = await strapi.query('metadata','cfp').create({
         type: 'selection',
         data: selectAction,
-        submission,
         user: user.id,
         details: {
           team,
@@ -251,7 +250,7 @@ module.exports = {
     let short = data.short ?? data.summary ?? data.Pitch
     let long = data.long ?? data.description ?? data.Abstract
 
-    const { id: contributorId } = await strapi.query(M_CONTRIBUTORS).create({ 
+    const { id: contributorId } = await strapi.query(M_CONTRIBUTORS).create({
       name,
       email,
       tagline,
