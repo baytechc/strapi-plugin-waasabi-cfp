@@ -1,4 +1,4 @@
-email-cfp-confirmation-subject = [RustFest Global CFP] 已收到您的投稿
+email-cfp-confirmation-subject = [RustFest Global] 已收到您的投稿
 email-cfp-confirmation-body =
     親愛的 $NAME 您好，
     
