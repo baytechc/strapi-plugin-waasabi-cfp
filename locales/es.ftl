@@ -1,4 +1,4 @@
-email-cfp-confirmation-subject = [RustFest Global CFP] Propuesta recibida
+email-cfp-confirmation-subject = [RustFest Global] Propuesta recibida
 email-cfp-confirmation-body =
     Hola $NAME,
     
