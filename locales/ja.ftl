@@ -1,4 +1,4 @@
-email-cfp-confirmation-subject = [RustFest Global CFP] プロポーザルを受信しました
+email-cfp-confirmation-subject = [RustFest Global] プロポーザルを受信しました
 email-cfp-confirmation-body =
     親愛なる $NAME さま
     
