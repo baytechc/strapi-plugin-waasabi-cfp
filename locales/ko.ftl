@@ -1,4 +1,4 @@
-email-cfp-confirmation-subject = [RustFest Global CFP] 제출 완료
+email-cfp-confirmation-subject = [RustFest Global] 제출 완료
 email-cfp-confirmation-body =
     친애하는 $NAME님께,
     
