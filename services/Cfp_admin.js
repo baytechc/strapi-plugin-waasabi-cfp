@@ -258,9 +258,9 @@ module.exports = {
     })
 
     const { id: sessionId } = await strapi.query(M_SESSION).create({
-      Title: title,
-      Pitch: short,
-      Abstract: long,
+      title,
+      short,
+      long,
     })
 
     // Db connection
